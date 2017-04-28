@@ -23,8 +23,4 @@ public class TeacherController {
     this.service = service;
   }
 
-  @GetMapping("findAllTeacher")
-  public List<TeacherEntity> findAllTeacher() {
-    return service.findAllTeacher();
-  }
 }

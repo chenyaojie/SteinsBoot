@@ -1,5 +1,6 @@
 package demo.wetter.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -15,7 +16,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "teacher")
-public class TeacherEntity {
+public class TeacherEntity implements Serializable {
 
   private Long id;
   private String tNo;

@@ -9,6 +9,11 @@ spring:
     database: mysql
     show-sql: true
   cache:
-    type: ehcache
-    ehcache:
-      config: classpath:config/ehcache-config.xml
+    jcache:
+      config: config/ehcache3.xml
+  output:
+    ansi:
+      enabled: detect
+logging:
+  level:
+    org.ehcache: debug

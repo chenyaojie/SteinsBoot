@@ -11,7 +11,9 @@ import java.util.List;
 
 public interface TeacherService {
 
-  List<TeacherEntity> findAllTeacher();
-
   TeacherEntity findTeacherById(Long id);
+
+  TeacherEntity save(TeacherEntity entity);
+
+  void deleteById(Long id);
 }
