@@ -1,4 +1,4 @@
-package demo.wetter.domain;
+package wetter.demo.domain;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -25,6 +25,38 @@ public class TeacherEntity implements Serializable {
   private Date tBirthday;
   private String prof;
   private String depart;
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    TeacherEntity that = (TeacherEntity) o;
+
+    if (id != null ? !id.equals(that.id) : that.id != null) {
+      return false;
+    }
+    if (tNo != null ? !tNo.equals(that.tNo) : that.tNo != null) {
+      return false;
+    }
+    if (tName != null ? !tName.equals(that.tName) : that.tName != null) {
+      return false;
+    }
+    if (tSex != null ? !tSex.equals(that.tSex) : that.tSex != null) {
+      return false;
+    }
+    if (tBirthday != null ? !tBirthday.equals(that.tBirthday) : that.tBirthday != null) {
+      return false;
+    }
+    if (prof != null ? !prof.equals(that.prof) : that.prof != null) {
+      return false;
+    }
+    return depart != null ? depart.equals(that.depart) : that.depart == null;
+  }
 
   @Basic
   @Column(name = "T_NO")

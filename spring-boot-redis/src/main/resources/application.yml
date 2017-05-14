@@ -8,7 +8,6 @@ spring:
   jpa:
     database: mysql
     show-sql: true
-  cache:
-    jcache:
-      config: config/ehcache3.xml
-
+  redis:
+    host: 10.20.11.24
+    port: 6379

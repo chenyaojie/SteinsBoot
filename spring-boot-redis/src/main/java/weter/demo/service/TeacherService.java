@@ -1,8 +1,7 @@
-package demo.wetter.service;
+package weter.demo.service;
 
-import demo.wetter.domain.TeacherEntity;
-import java.util.List;
 
+import weter.demo.domain.TeacherEntity;
 
 /**
  * @author 2299
@@ -16,4 +15,6 @@ public interface TeacherService {
   TeacherEntity save(TeacherEntity entity);
 
   void deleteById(Long id);
+
+  void cleanAllCache();
 }

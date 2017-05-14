@@ -1,9 +1,5 @@
-package demo.wetter.service.impl;
+package weter.demo.service.impl;
 
-
-import demo.wetter.domain.TeacherEntity;
-import demo.wetter.domain.TeacherRepository;
-import demo.wetter.service.TeacherService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,20 +9,13 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import weter.demo.domain.TeacherEntity;
+import weter.demo.domain.TeacherRepository;
+import weter.demo.service.TeacherService;
 
-
-/**
- * @author 2299
- * @version 1.0 2017/4/12
- * @Cache* 这类标签具体在 Dao 层还是在 Service 层使用，取决于具体的逻辑：
- * @link http://stackoverflow.com/questions/15420478/should-i-do-caching-on-dao-layer-or-service-layer-in-spring-mvc-web-app?answertab=votes#tab-top
- * @link https://www.quora.com/In-which-Spring-Framework-layer-should-I-manage-cache-Repository-or-Service
- * @link http://stackoverflow.com/questions/7058843/when-and-how-to-use-hibernate-second-level-cache
- */
 @Service
 @Transactional
-@CacheConfig(cacheNames = "teacher") // Spring @Cache* 这类标签不要在 interface 中使用
-
+@CacheConfig(cacheNames = "teacher")
 public class TeacherServiceImpl implements TeacherService {
 
   private static final Logger log = LoggerFactory.getLogger(TeacherServiceImpl.class);
@@ -38,30 +27,39 @@ public class TeacherServiceImpl implements TeacherService {
   }
 
   @Override
-  @Cacheable
+  @Cacheable(key = "#id")
   public TeacherEntity findTeacherById(Long id) {
-    log.info("查询数据库");
+    log.info("开始查询数据");
     TeacherEntity res;
     try {
       res = repository.findOne(id);
+      log.info("查询数据成功");
       return res;
     } catch (Exception e) {
       e.printStackTrace();
+      log.info("结束查询数据异常\n" + e);
+      return null;
     }
-    return null;
   }
 
   @Override
-  @CachePut
+  @CachePut(key = "#p0.id")
   public TeacherEntity save(TeacherEntity entity) {
-    log.info("修改数据库");
+    log.info("修改数据");
     return repository.save(entity);
   }
 
   @Override
-  @CacheEvict(beforeInvocation = true)
+  @CacheEvict(key = "#id", beforeInvocation = true)
   public void deleteById(Long id) {
-    log.info("删除数据库");
+    log.info("删除数据");
     repository.deleteById(id);
   }
+
+  @Override
+  @CacheEvict(allEntries = true, beforeInvocation = true)
+  public void cleanAllCache() {
+    log.info("删除所有缓存数据");
+  }
 }
+

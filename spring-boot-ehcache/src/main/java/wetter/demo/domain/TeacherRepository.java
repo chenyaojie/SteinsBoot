@@ -1,4 +1,4 @@
-package demo.wetter.domain;
+package wetter.demo.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -11,7 +11,7 @@ public interface TeacherRepository extends JpaRepository<TeacherEntity, Long> {
 
   TeacherEntity findOne(Long id);
 
-  TeacherEntity save(TeacherEntity entity);
+  <S extends TeacherEntity> S save(S entity);
 
   void deleteById(Long id);
 
